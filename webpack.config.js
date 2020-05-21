@@ -1,25 +1,22 @@
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+
+const base = require('./webpack.config.base.js')
 
 module.exports = {
-  mode: "development", //mode:切换模式
-  entry: "./src/index.js", //entry:入口
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.[contenthash].js", //filename:出口
+  ...base, //把base属性抄过来
+  devtool: "inline-source-map",
+  devServer: {
+    contentBase: "./dist",
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "新垣结衣",
-      template: "src/assets/index.html"
-    }),
-      module: {
+  module: {
     rules: [
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
+        //发现任何以.css结尾的文件名，css-loader：读到js里，style.css：读到的放到head标签里
       },
     ],
   },
-  ],
 };
