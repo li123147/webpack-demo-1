@@ -20,7 +20,8 @@ module.exports = {
     }),
   ],
   module: {
-      rules: [  
+    rules: [  
+        ...base.module.rules,
       {
         test: /\.css$/i,
         use: [
